@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Viewer (src folder)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        #pdf-viewer {
+            flex-grow: 1;
+            overflow-y: scroll;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        }
+        #pdf-viewer::-webkit-scrollbar { /* WebKit */
+            width: 0;
+            height: 0;
+        }
+        #pdf-viewer canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        #pdf-select {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            outline: none;
+            background-color: #144c3b;
+            color: #fab322;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="pdf-viewer"></div>
+    <select id="pdf-select">
+        <!-- PDF options will be added here dynamically -->
+    </select>
+
+    <script>
+        const pdfSelect = document.getElementById('pdf-select');
+        const pdfViewer = document.getElementById('pdf-viewer');
+
+        // List of PDFs in the src folder
+        const pdfs = ['SERVICES (GBP).pdf', 'SERVICES (USD).pdf', 'WORK EXAMPLES.pdf'];
+
+        // Populate the select element with PDF options
+        pdfs.forEach(pdf => {
+            const option = document.createElement('option');
+            option.value = pdf;
+            option.textContent = pdf.replace('.pdf', ''); // Remove .pdf extension for display
+            if (pdf === 'SERVICES (GBP).pdf') {
+                option.selected = true; // Set default selection
+            }
+            pdfSelect.appendChild(option);
+        });
+
+        async function loadPDF(pdfPath) {
+            try {
+                const loadingTask = pdfjsLib.getDocument(pdfPath);
+                const pdf = await loadingTask.promise;
+                
+                pdfViewer.innerHTML = '';
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewportWidth = pdfViewer.clientWidth;
+                    const scale = viewportWidth / page.getViewport({ scale: 1 }).width;
+                    const viewport = page.getViewport({ scale });
+                    
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    await page.render(renderContext);
+                    
+                    pdfViewer.appendChild(canvas);
+                }
+            } catch (error) {
+                console.error('Error loading PDF:', error);
+                alert('Failed to load the PDF. Please make sure the file exists in the src folder.');
+            }
+        }
+
+        pdfSelect.addEventListener('change', (event) => {
+            const selectedPdf = event.target.value;
+            if (selectedPdf) {
+                loadPDF(`src/${selectedPdf}`);
+            } else {
+                pdfViewer.innerHTML = '';
+            }
+        });
+
+        // Resize handler to adjust PDF size when window is resized
+        window.addEventListener('resize', () => {
+            const selectedPdf = pdfSelect.value;
+            if (selectedPdf) {
+                loadPDF(`src/${selectedPdf}`);
+            }
+        });
+
+        // Load default PDF on page load
+        loadPDF('src/SERVICES (GBP).pdf');
+    </script>
+</body>
+</html>
