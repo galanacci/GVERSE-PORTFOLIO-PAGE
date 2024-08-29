@@ -17,10 +17,10 @@
         #pdf-viewer {
             flex-grow: 1;
             overflow-y: scroll;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none;  /* Internet Explorer 10+ */
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
-        #pdf-viewer::-webkit-scrollbar { /* WebKit */
+        #pdf-viewer::-webkit-scrollbar {
             width: 0;
             height: 0;
         }
@@ -53,16 +53,14 @@
         const pdfSelect = document.getElementById('pdf-select');
         const pdfViewer = document.getElementById('pdf-viewer');
 
-        // List of PDFs in the src folder
         const pdfs = ['SERVICES (GBP).pdf', 'SERVICES (USD).pdf', 'WORK EXAMPLES.pdf'];
 
-        // Populate the select element with PDF options
         pdfs.forEach(pdf => {
             const option = document.createElement('option');
             option.value = pdf;
-            option.textContent = pdf.replace('.pdf', ''); // Remove .pdf extension for display
+            option.textContent = pdf.replace('.pdf', '');
             if (pdf === 'SERVICES (GBP).pdf') {
-                option.selected = true; // Set default selection
+                option.selected = true;
             }
             pdfSelect.appendChild(option);
         });
@@ -76,13 +74,21 @@
                 for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
                     const page = await pdf.getPage(pageNum);
                     const viewportWidth = pdfViewer.clientWidth;
-                    const scale = viewportWidth / page.getViewport({ scale: 1 }).width;
-                    const viewport = page.getViewport({ scale });
+                    const originalViewport = page.getViewport({ scale: 1 });
+                    const scale = viewportWidth / originalViewport.width;
+                    
+                    // Increase scale for better quality, especially on high-DPI screens
+                    const qualityScale = scale * (window.devicePixelRatio || 1);
+                    const viewport = page.getViewport({ scale: qualityScale });
                     
                     const canvas = document.createElement('canvas');
                     const context = canvas.getContext('2d');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
+                    
+                    // Set canvas size for display
+                    canvas.style.width = `${originalViewport.width * scale}px`;
+                    canvas.style.height = `${originalViewport.height * scale}px`;
                     
                     const renderContext = {
                         canvasContext: context,
@@ -107,13 +113,28 @@
             }
         });
 
+        // Debounce function to limit how often the resize event fires
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
         // Resize handler to adjust PDF size when window is resized
-        window.addEventListener('resize', () => {
+        const debouncedResize = debounce(() => {
             const selectedPdf = pdfSelect.value;
             if (selectedPdf) {
                 loadPDF(`src/${selectedPdf}`);
             }
-        });
+        }, 250);
+
+        window.addEventListener('resize', debouncedResize);
 
         // Load default PDF on page load
         loadPDF('src/SERVICES (GBP).pdf');
