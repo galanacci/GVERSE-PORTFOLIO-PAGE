@@ -1,164 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>G/VERSE™ - CREATIVE POWERHOUSE</title>
-    <style>
-        @font-face {
-            font-family: 'Galanacci';
-            src: url('src/Galanacci-Regular.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        body {
-            background-color: #144c3b;
-            color: #fab322;
-            font-family: 'Galanacci', sans-serif;
-            margin: 0;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url('src/pattern.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: repeat;
-            opacity: 0.1;
-            z-index: -1;
-        }
-
-        #text-container {
-            text-align: center;
-            padding: 10px;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-
-        .large-text {
-            font-size: 2.5em;
-        }
-
-        .small-text {
-            font-size: 1.5em;
-        }
-
-        .cursor {
-            border-right: 0.05em solid #fab322;
-            animation: blink 0.7s steps(1) infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                border-color: transparent;
-            }
-        }
-
-        /* Media query for mobile devices */
-        @media (max-width: 767px) {
-            .large-text {
-                font-size: 1.0em;
-            }
-
-            .small-text {
-                font-size: 0.7em;
-            }
-        }
-
-        nav .logo-container img {
-            height: 100px;
-            transition: height 0.3s;
-        }
-
-        nav {
-            background-color: transparent;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: 40px;
-            z-index: 10;
-            transition: opacity 0.3s;
-        }
-
-        /* Send Enquiry Button Styles */
-        .container {
-            text-align: center;
-            width: 100%;
-            padding-bottom: 40px;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            z-index: 1000;
-            background-color: rgba(0, 0, 0, 0.0);
-        }
-
-        #send-enquiry {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: transparent;
-            border: 0.2px solid #fab322;
-            cursor: pointer;
-            white-space: nowrap;
-            border-radius: 0px;
-            z-index: 1000;
-            color: #fab322;
-            font-family: 'Galanacci', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        #send-enquiry:hover {
-            background-color: #fab322;
-            color: #144c3b;
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding-bottom: 40px;
-            }
-        }
-
-        /* Mute button styles */
-        #mute-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: transparent;
-            border: none;
-            color: #fab322;
-            font-size: 12px;
-            cursor: pointer;
-            z-index: 1000;
-            opacity: 0.2;
-            transition: opacity 0.3s;
-            font-family: 'Galanacci', sans-serif;
-            padding: 5px 10px;
-        }
-
-        #mute-button:hover {
-            opacity: 1;
-        }
-    </style>
 </head>
+
 <body>
+   
     <nav>
         <div class="logo-container">
             <a href="index.html">
@@ -166,83 +17,21 @@
             </a>
         </div>
     </nav>
+
     <div id="text-container"></div>
+
     <audio id="typingSound" src="src/keyboard-typing-5997.mp3" alt="Typing sound"></audio>
+
     <div class="container">
         <button id="send-enquiry" onclick="sendEnquiry()">Send Enquiry</button>
     </div>
+
     <button id="mute-button" onclick="toggleMute()">SOUND</button>
-    <script>
-        const texts = [
-            { text: "G/VERSE, aka GALANACCI-VERSE", isStatement: false },
-            { text: "A multi-disciplinary creative studio", isStatement: false },
-            { text: "Founded by GALANACCI THE CREATOR and MAE.B", isStatement: true },
-            { text: "Over eight years of partnership", isStatement: true },
-            { text: "Both personal and professional", isStatement: false },
-            { text: "A unique blend of skills", isStatement: false },
-            { text: "A creative powerhouse!", isStatement: true },
-            { text: "Specializing in creativity", isStatement: false },
-            { text: "And purposeful design solutions", isStatement: true },
-            { text: "This is G/VERSE.", isStatement: true }
-        ];
 
-        const container = document.getElementById('text-container');
-        const typingSound = document.getElementById('typingSound');
-        let currentIndex = 0;
+    <div class="copyright">
+        © 2024 GALANACCI® GALANACCI-VERSE™
+    </div>
 
-        async function playTypingSound(duration) {
-            if (!isMuted) {
-                typingSound.currentTime = 0;
-                typingSound.playbackRate = 15 / duration;
-                try {
-                    await typingSound.play();
-                } catch (error) {
-                    console.error("Audio playback failed:", error);
-                }
-            }
-        }
-
-        async function typeWriter(text) {
-            const typingDuration = text.length * 100; // 100ms per character
-            playTypingSound(typingDuration / 1000); // Convert to seconds
-
-            for (let i = 0; i <= text.length; i++) {
-                container.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
-                await new Promise(resolve => setTimeout(resolve, 100));
-            }
-
-            // Wait for 1.5 seconds before showing the next text
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            showNextText();
-        }
-
-        function showNextText() {
-            const currentText = texts[currentIndex];
-            container.className = currentText.isStatement ? 'large-text' : 'small-text';
-            container.innerHTML = '';
-            
-            typeWriter(currentText.text);
-            
-            currentIndex = (currentIndex + 1) % texts.length;
-        }
-
-        // Start the animation
-        showNextText();
-
-        // Function to handle the Send Enquiry button click
-        function sendEnquiry() {
-            window.location.href = "mailto:enquiries@galanacci-verse.com";
-        }
-
-        // Mute button functionality
-        let isMuted = false;
-        const muteButton = document.getElementById('mute-button');
-
-        function toggleMute() {
-            isMuted = !isMuted;
-            typingSound.muted = isMuted;
-            muteButton.textContent = isMuted ? 'SOUND OFF' : 'SOUND ON';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

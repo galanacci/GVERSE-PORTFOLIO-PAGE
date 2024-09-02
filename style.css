@@ -1,0 +1,188 @@
+@font-face {
+    font-family: 'Galanacci';
+    src: url('src/Galanacci-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #144c3b;
+    color: #fab322;
+    font-family: 'Galanacci', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('src/pattern.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+#text-container {
+    text-align: center;
+    padding: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.large-text {
+    font-size: 2.5em;
+}
+
+.small-text {
+    font-size: 1.5em;
+}
+
+.cursor {
+    border-right: 0.05em solid #fab322;
+    animation: blink 0.7s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+    .large-text {
+        font-size: 1.0em;
+    }
+
+    .small-text {
+        font-size: 0.7em;
+    }
+}
+
+nav .logo-container img {
+    height: 100px;
+    transition: height 0.3s;
+}
+
+nav {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    z-index: 10;
+    transition: opacity 0.3s;
+}
+
+/* Send Enquiry Button Styles */
+.container {
+    text-align: center;
+    width: 100%;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.0);
+}
+
+#send-enquiry {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    border: 0.2px solid #fab322;
+    cursor: pointer;
+    white-space: nowrap;
+    border-radius: 0px;
+    z-index: 1000;
+    color: #fab322;
+    font-family: 'Galanacci', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#send-enquiry:hover {
+    background-color: #fab322;
+    color: #144c3b;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding-bottom: 40px;
+    }
+}
+
+/* Mute button styles */
+#mute-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    color: #fab322;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0.2;
+    transition: opacity 0.3s;
+    font-family: 'Galanacci', sans-serif;
+    padding: 5px 10px;
+}
+
+#mute-button:hover {
+    opacity: 1;
+}
+
+/* Copyright Label */
+
+.copyright {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    color: white;
+    opacity: 0.1;
+    z-index: 1000;
+    font-weight: 700;
+}
+
+.container {
+    padding-bottom: 50px;
+}
+
+.input-container {
+    position: relative;
+    display: inline-block;
+}
+
+#animated-placeholder {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fab322;
+    pointer-events: none;
+    font-size: 16px;
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    z-index: 10;
+}
