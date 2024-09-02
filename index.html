@@ -3,141 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G/VERSE - PURPOSEFUL DESIGNS</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <title>G/VERSE™ - CREATIVE POWERHOUSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-        }
-        #pdf-viewer {
-            flex-grow: 1;
-            overflow-y: scroll;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        #pdf-viewer::-webkit-scrollbar {
-            width: 0;
-            height: 0;
-        }
-        #pdf-viewer canvas {
-            display: block;
-            margin: 0 auto;
-        }
-        #pdf-select {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            outline: none;
+        body {
             background-color: #144c3b;
             color: #fab322;
-            z-index: 1000;
+            font-family: 'Lora', serif;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #text-container {
+            position: absolute;
+            text-align: center;
+            opacity: 1;
+            padding: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .large-text {
+            font-size: 2.5em;
+        }
+        .small-text {
+            font-size: 1.5em;
+        }
+        .cursor {
+            border-right: 0.05em solid white;
+            animation: blink 0.7s steps(1) infinite;
+        }
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="pdf-viewer"></div>
-    <select id="pdf-select">
-        <!-- PDF options will be added here dynamically -->
-    </select>
+    <div id="text-container"></div>
+    <audio id="typingSound" src="src/keyboard-typing-5997.mp3" alt="Typing sound"></audio>
 
     <script>
-        const pdfSelect = document.getElementById('pdf-select');
-        const pdfViewer = document.getElementById('pdf-viewer');
+        const texts = [
+            { text: "GALANACCI®️", isStatement: true },
+            { text: "A luxury humanwear brand", isStatement: false },
+            { text: "Where luxury is time", isStatement: true },
+            { text: "Where luxury is purpose", isStatement: true },
+            { text: "Where luxury is telling a story", isStatement: true },
+            { text: "Humanwear?", isStatement: false },
+            { text: "Shifting the focus towards the individual", isStatement: false },
+            { text: "From the street to the human", isStatement: true },
+            { text: "Fashion is an intimate art", isStatement: false },
+            { text: "An art that we wear", isStatement: true },
+            { text: "Humanwear?", isStatement: false },
+            { text: "Humanwear is inspiring individuals", isStatement: true },
+            { text: "Humanwear is greatness", isStatement: true },
+            { text: "Humanwear is you", isStatement: true },
+            { text: "GALANACCI®️ is the vehicle", isStatement: true },
+            { text: "The vehicle that takes you from A to G", isStatement: true },
+            { text: "And the G stands for GREATNESS", isStatement: false },
+            { text: "Fashion beyond aesthetics", isStatement: true },
+            { text: "Fashion rooted in purpose", isStatement: true },
+            { text: "A brand conceived from a poem", isStatement: false },
+            { text: "A poem about GREATNESS", isStatement: true },
+            { text: "This is GALANACCI®️", isStatement: false }
+        ];
 
-        const pdfs = ['SERVICES.pdf', 'WORK EXAMPLES.pdf'];
+        const container = document.getElementById('text-container');
+        const typingSound = document.getElementById('typingSound');
+        let currentIndex = 0;
 
-        pdfs.forEach(pdf => {
-            const option = document.createElement('option');
-            option.value = pdf;
-            option.textContent = pdf.replace('.pdf', '');
-            if (pdf === 'SERVICES.pdf') {
-                option.selected = true;
-            }
-            pdfSelect.appendChild(option);
-        });
+        function getRandomCenteredPosition() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const maxOffsetX = window.innerWidth * 0.2;
+            const maxOffsetY = window.innerHeight * 0.2;
 
-        async function loadPDF(pdfPath) {
+            const randomOffsetX = (Math.random() - 0.5) * 2 * maxOffsetX;
+            const randomOffsetY = (Math.random() - 0.5) * 2 * maxOffsetY;
+
+            const x = Math.max(0, Math.min(window.innerWidth - container.offsetWidth, centerX + randomOffsetX - container.offsetWidth / 2));
+            const y = Math.max(0, Math.min(window.innerHeight - container.offsetHeight, centerY + randomOffsetY - container.offsetHeight / 2));
+
+            return { x, y };
+        }
+
+        function setRandomCenteredPosition() {
+            const { x, y } = getRandomCenteredPosition();
+            container.style.left = `${x}px`;
+            container.style.top = `${y}px`;
+        }
+
+        async function playTypingSound(duration) {
+            typingSound.currentTime = 0;
+            typingSound.playbackRate = 15 / duration; // Adjust playback rate to match sentence duration
             try {
-                const loadingTask = pdfjsLib.getDocument(pdfPath);
-                const pdf = await loadingTask.promise;
-                
-                pdfViewer.innerHTML = '';
-                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-                    const page = await pdf.getPage(pageNum);
-                    const viewportWidth = pdfViewer.clientWidth;
-                    const originalViewport = page.getViewport({ scale: 1 });
-                    const scale = viewportWidth / originalViewport.width;
-                    
-                    // Increase scale for better quality, especially on high-DPI screens
-                    const qualityScale = scale * (window.devicePixelRatio || 1);
-                    const viewport = page.getViewport({ scale: qualityScale });
-                    
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    
-                    // Set canvas size for display
-                    canvas.style.width = `${originalViewport.width * scale}px`;
-                    canvas.style.height = `${originalViewport.height * scale}px`;
-                    
-                    const renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-                    await page.render(renderContext);
-                    
-                    pdfViewer.appendChild(canvas);
-                }
+                await typingSound.play();
             } catch (error) {
-                console.error('Error loading PDF:', error);
-                alert('Failed to load the PDF. Please make sure the file exists in the src folder.');
+                console.error("Audio playback failed:", error);
             }
         }
 
-        pdfSelect.addEventListener('change', (event) => {
-            const selectedPdf = event.target.value;
-            if (selectedPdf) {
-                loadPDF(`src/${selectedPdf}`);
-            } else {
-                pdfViewer.innerHTML = '';
-            }
-        });
+        async function typeWriter(text) {
+            const typingDuration = text.length * 100; // 100ms per character
+            await playTypingSound(typingDuration / 1000); // Convert to seconds
 
-        // Debounce function to limit how often the resize event fires
-        function debounce(func, wait) {
-            let timeout;
-            return function executedFunction(...args) {
-                const later = () => {
-                    clearTimeout(timeout);
-                    func(...args);
-                };
-                clearTimeout(timeout);
-                timeout = setTimeout(later, wait);
-            };
+            for (let i = 0; i <= text.length; i++) {
+                container.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+
+            setTimeout(showNextText, 1500);
         }
 
-        // Resize handler to adjust PDF size when window is resized
-        const debouncedResize = debounce(() => {
-            const selectedPdf = pdfSelect.value;
-            if (selectedPdf) {
-                loadPDF(`src/${selectedPdf}`);
-            }
-        }, 250);
+        function showNextText() {
+            const currentText = texts[currentIndex];
+            container.className = currentText.isStatement ? 'large-text' : 'small-text';
+            setRandomCenteredPosition();
+            container.innerHTML = '';
+            
+            typeWriter(currentText.text);
+            
+            currentIndex = (currentIndex + 1) % texts.length;
+        }
 
-        window.addEventListener('resize', debouncedResize);
+        setRandomCenteredPosition();
+        showNextText();
 
-        // Load default PDF on page load
-        loadPDF('src/SERVICES.pdf');
+        window.addEventListener('resize', setRandomCenteredPosition);
     </script>
 </body>
 </html>
