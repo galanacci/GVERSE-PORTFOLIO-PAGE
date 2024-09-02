@@ -4,129 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G/VERSE™ - CREATIVE POWERHOUSE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
     <style>
+        @font-face {
+            font-family: 'Galanacci';
+            src: url('src/Galanacci-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             background-color: #144c3b;
             color: #fab322;
-            font-family: 'Lora', serif;
+            font-family: 'Galanacci', sans-serif;
             margin: 0;
             overflow: hidden;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-image: url('src/PATTERN.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
+            opacity: 0.1;
+            z-index: -1;
         }
+
         #text-container {
-            position: absolute;
             text-align: center;
-            opacity: 1;
             padding: 10px;
             max-width: 80%;
             word-wrap: break-word;
         }
+
         .large-text {
             font-size: 2.5em;
         }
+
         .small-text {
             font-size: 1.5em;
         }
+
         .cursor {
-            border-right: 0.05em solid white;
+            border-right: 0.05em solid #fab322;
             animation: blink 0.7s steps(1) infinite;
         }
+
         @keyframes blink {
             50% {
                 border-color: transparent;
             }
         }
+
+        /* Media query for mobile devices */
+        @media (max-width: 767px) {
+            .large-text {
+                font-size: 1.0em;
+            }
+
+            .small-text {
+                font-size: 0.7em;
+            }
+        }
+
+        nav .logo-container img {
+            height: 100px;
+            transition: height 0.3s;
+        }
+
+        nav {
+            background-color: transparent;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 40px;
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+
+        /* Send Enquiry Button Styles */
+        .container {
+            text-align: center;
+            width: 100%;
+            padding-bottom: 40px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.0);
+        }
+
+        #send-enquiry {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: transparent;
+            border: 0.2px solid #fab322;
+            cursor: pointer;
+            white-space: nowrap;
+            border-radius: 0px;
+            z-index: 1000;
+            color: #fab322;
+            font-family: 'Galanacci', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #send-enquiry:hover {
+            background-color: #fab322;
+            color: #144c3b;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding-bottom: 40px;
+            }
+        }
+
+        /* Mute button styles */
+        #mute-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: transparent;
+            border: none;
+            color: #fab322;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0.2;
+            transition: opacity 0.3s;
+            font-family: 'Galanacci', sans-serif;
+            padding: 5px 10px;
+        }
+
+        #mute-button:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
+    <nav>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="src/logo.webp" alt="G/VERSE logo">
+            </a>
+        </div>
+    </nav>
     <div id="text-container"></div>
     <audio id="typingSound" src="src/keyboard-typing-5997.mp3" alt="Typing sound"></audio>
-
+    <div class="container">
+        <button id="send-enquiry" onclick="sendEnquiry()">Send Enquiry</button>
+    </div>
+    <button id="mute-button" onclick="toggleMute()">SOUND</button>
     <script>
         const texts = [
-            { text: "GALANACCI®️", isStatement: true },
-            { text: "A luxury humanwear brand", isStatement: false },
-            { text: "Where luxury is time", isStatement: true },
-            { text: "Where luxury is purpose", isStatement: true },
-            { text: "Where luxury is telling a story", isStatement: true },
-            { text: "Humanwear?", isStatement: false },
-            { text: "Shifting the focus towards the individual", isStatement: false },
-            { text: "From the street to the human", isStatement: true },
-            { text: "Fashion is an intimate art", isStatement: false },
-            { text: "An art that we wear", isStatement: true },
-            { text: "Humanwear?", isStatement: false },
-            { text: "Humanwear is inspiring individuals", isStatement: true },
-            { text: "Humanwear is greatness", isStatement: true },
-            { text: "Humanwear is you", isStatement: true },
-            { text: "GALANACCI®️ is the vehicle", isStatement: true },
-            { text: "The vehicle that takes you from A to G", isStatement: true },
-            { text: "And the G stands for GREATNESS", isStatement: false },
-            { text: "Fashion beyond aesthetics", isStatement: true },
-            { text: "Fashion rooted in purpose", isStatement: true },
-            { text: "A brand conceived from a poem", isStatement: false },
-            { text: "A poem about GREATNESS", isStatement: true },
-            { text: "This is GALANACCI®️", isStatement: false }
+            { text: "G/VERSE, aka GALANACCI-VERSE", isStatement: false },
+            { text: "A multi-disciplinary creative studio", isStatement: false },
+            { text: "Founded by GALANACCI THE CREATOR and MAE.B", isStatement: true },
+            { text: "Over eight years of partnership", isStatement: true },
+            { text: "Both personal and professional", isStatement: false },
+            { text: "A unique blend of skills", isStatement: false },
+            { text: "A creative powerhouse!", isStatement: true },
+            { text: "Specializing in creativity", isStatement: false },
+            { text: "And purposeful design solutions", isStatement: true },
+            { text: "This is G/VERSE.", isStatement: true }
         ];
 
         const container = document.getElementById('text-container');
         const typingSound = document.getElementById('typingSound');
         let currentIndex = 0;
 
-        function getRandomCenteredPosition() {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-            const maxOffsetX = window.innerWidth * 0.2;
-            const maxOffsetY = window.innerHeight * 0.2;
-
-            const randomOffsetX = (Math.random() - 0.5) * 2 * maxOffsetX;
-            const randomOffsetY = (Math.random() - 0.5) * 2 * maxOffsetY;
-
-            const x = Math.max(0, Math.min(window.innerWidth - container.offsetWidth, centerX + randomOffsetX - container.offsetWidth / 2));
-            const y = Math.max(0, Math.min(window.innerHeight - container.offsetHeight, centerY + randomOffsetY - container.offsetHeight / 2));
-
-            return { x, y };
-        }
-
-        function setRandomCenteredPosition() {
-            const { x, y } = getRandomCenteredPosition();
-            container.style.left = `${x}px`;
-            container.style.top = `${y}px`;
-        }
-
         async function playTypingSound(duration) {
-            typingSound.currentTime = 0;
-            typingSound.playbackRate = 15 / duration; // Adjust playback rate to match sentence duration
-            try {
-                await typingSound.play();
-            } catch (error) {
-                console.error("Audio playback failed:", error);
+            if (!isMuted) {
+                typingSound.currentTime = 0;
+                typingSound.playbackRate = 15 / duration;
+                try {
+                    await typingSound.play();
+                } catch (error) {
+                    console.error("Audio playback failed:", error);
+                }
             }
         }
 
         async function typeWriter(text) {
             const typingDuration = text.length * 100; // 100ms per character
-            await playTypingSound(typingDuration / 1000); // Convert to seconds
+            playTypingSound(typingDuration / 1000); // Convert to seconds
 
             for (let i = 0; i <= text.length; i++) {
                 container.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
 
-            setTimeout(showNextText, 1500);
+            // Wait for 1.5 seconds before showing the next text
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            showNextText();
         }
 
         function showNextText() {
             const currentText = texts[currentIndex];
             container.className = currentText.isStatement ? 'large-text' : 'small-text';
-            setRandomCenteredPosition();
             container.innerHTML = '';
             
             typeWriter(currentText.text);
@@ -134,10 +226,23 @@
             currentIndex = (currentIndex + 1) % texts.length;
         }
 
-        setRandomCenteredPosition();
+        // Start the animation
         showNextText();
 
-        window.addEventListener('resize', setRandomCenteredPosition);
+        // Function to handle the Send Enquiry button click
+        function sendEnquiry() {
+            window.location.href = "mailto:enquiries@galanacci-verse.com";
+        }
+
+        // Mute button functionality
+        let isMuted = false;
+        const muteButton = document.getElementById('mute-button');
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            typingSound.muted = isMuted;
+            muteButton.textContent = isMuted ? 'SOUND OFF' : 'SOUND ON';
+        }
     </script>
 </body>
 </html>
