@@ -53,13 +53,13 @@
         const pdfSelect = document.getElementById('pdf-select');
         const pdfViewer = document.getElementById('pdf-viewer');
 
-        const pdfs = ['SERVICES (GBP).pdf', 'SERVICES (USD).pdf', 'WORK EXAMPLES.pdf'];
+        const pdfs = ['SERVICES.pdf', 'WORK EXAMPLES.pdf'];
 
         pdfs.forEach(pdf => {
             const option = document.createElement('option');
             option.value = pdf;
             option.textContent = pdf.replace('.pdf', '');
-            if (pdf === 'SERVICES (GBP).pdf') {
+            if (pdf === 'SERVICES.pdf') {
                 option.selected = true;
             }
             pdfSelect.appendChild(option);
