@@ -190,3 +190,78 @@ nav {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+    background-color: #144c3b;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #fab322;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close {
+    color: #fab322;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#enquiry-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#enquiry-form input,
+#enquiry-form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #fab322;
+    background-color: #144c3b;
+    color: #fab322;
+    font-family: 'Galanacci', sans-serif;
+}
+
+#enquiry-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+#enquiry-form button {
+    padding: 10px 20px;
+    background-color: #fab322;
+    color: #144c3b;
+    border: none;
+    cursor: pointer;
+    font-family: 'Galanacci', sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#enquiry-form button:hover {
+    background-color: #144c3b;
+    color: #fab322;
+    border: 1px solid #fab322;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');

@@ -53,7 +53,7 @@ function showNextText() {
 
 // Function to handle the Send Enquiry button click
 function sendEnquiry() {
-    window.location.href = "mailto:enquiries@galanacci-verse.com";
+    document.getElementById('enquiry-popup').style.display = 'block';
 }
 
 // Function to open PDF files
@@ -74,3 +74,34 @@ function toggleMute() {
 
 // Start the animation
 showNextText();
+
+// Enquiry form functionality
+document.getElementById('send-enquiry').addEventListener('click', sendEnquiry);
+
+document.querySelector('.close').addEventListener('click', function() {
+    document.getElementById('enquiry-popup').style.display = 'none';
+});
+
+document.getElementById('enquiry-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    
+    // Here you would typically send this data to a server
+    // For this example, we'll just log it and show an alert
+    console.log('Enquiry submitted:', { name, email, message });
+    alert('Thank you for your enquiry. We will get back to you soon!');
+    
+    // Close the popup and reset the form
+    document.getElementById('enquiry-popup').style.display = 'none';
+    this.reset();
+});
+
+// Close the popup if clicked outside the form
+window.addEventListener('click', function(event) {
+    const popup = document.getElementById('enquiry-popup');
+    if (event.target == popup) {
+        popup.style.display = 'none';
+    }
+});
