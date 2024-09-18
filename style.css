@@ -137,26 +137,6 @@ nav {
     }
 }
 
-#mute-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: transparent;
-    border: none;
-    color: #fab322;
-    font-size: 12px;
-    cursor: pointer;
-    z-index: 1000;
-    opacity: 0.2;
-    transition: opacity 0.3s;
-    font-family: 'Galanacci', sans-serif;
-    padding: 5px 10px;
-}
-
-#mute-button:hover {
-    opacity: 1;
-}
-
 .copyright {
     position: fixed;
     bottom: 20px;
