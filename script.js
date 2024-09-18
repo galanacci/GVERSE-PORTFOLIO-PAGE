@@ -1,7 +1,7 @@
 const texts = [
     { text: "G/VERSE, aka GALANACCI-VERSE", isStatement: false },
     { text: "A multi-disciplinary creative studio", isStatement: false },
-    { text: "Founded by GALANACCI THE CREATOR and MAE.B", isStatement: true },
+    { text: "Founded by Francis and Marybeth", isStatement: true },
     { text: "Over eight years of partnership", isStatement: true },
     { text: "Both personal and professional", isStatement: false },
     { text: "A unique blend of skills", isStatement: false },
