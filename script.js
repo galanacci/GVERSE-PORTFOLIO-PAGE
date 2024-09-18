@@ -51,12 +51,15 @@ function showNextText() {
     currentIndex = (currentIndex + 1) % texts.length;
 }
 
-// Start the animation
-showNextText();
-
 // Function to handle the Send Enquiry button click
 function sendEnquiry() {
     window.location.href = "mailto:enquiries@galanacci-verse.com";
+}
+
+// Function to open PDF files
+function openPDF(filename) {
+    const pdfUrl = `src/${filename}`;
+    window.open(pdfUrl, '_blank', 'fullscreen=yes');
 }
 
 // Mute button functionality
@@ -68,3 +71,6 @@ function toggleMute() {
     typingSound.muted = isMuted;
     muteButton.textContent = isMuted ? 'SOUND OFF' : 'SOUND ON';
 }
+
+// Start the animation
+showNextText();

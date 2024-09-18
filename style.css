@@ -58,7 +58,6 @@ body::before {
     }
 }
 
-/* Media query for mobile devices */
 @media (max-width: 767px) {
     .large-text {
         font-size: 1.0em;
@@ -67,11 +66,6 @@ body::before {
     .small-text {
         font-size: 0.7em;
     }
-}
-
-nav .logo-container img {
-    height: 100px;
-    transition: height 0.3s;
 }
 
 nav {
@@ -88,7 +82,11 @@ nav {
     transition: opacity 0.3s;
 }
 
-/* Send Enquiry Button Styles */
+.logo-container img {
+    max-width: 100%;
+    height: 100px;
+}
+
 .container {
     text-align: center;
     width: 100%;
@@ -104,11 +102,11 @@ nav {
     background-color: rgba(0, 0, 0, 0.0);
 }
 
-#send-enquiry {
+#send-enquiry, #work-examples, #services {
     padding: 10px 20px;
     font-size: 16px;
     background-color: transparent;
-    border: 0.2px solid #fab322;
+    border: 0.0px solid #fab322;
     cursor: pointer;
     white-space: nowrap;
     border-radius: 0px;
@@ -116,9 +114,10 @@ nav {
     color: #fab322;
     font-family: 'Galanacci', sans-serif;
     transition: background-color 0.3s, color 0.3s;
+    margin: 0 5px;
 }
 
-#send-enquiry:hover {
+#send-enquiry:hover, #work-examples:hover, #services:hover {
     background-color: #fab322;
     color: #144c3b;
 }
@@ -126,10 +125,14 @@ nav {
 @media (max-width: 480px) {
     .container {
         padding-bottom: 40px;
+        flex-direction: column;
+    }
+
+    #send-enquiry, #work-examples, #services {
+        margin: 5px 0;
     }
 }
 
-/* Mute button styles */
 #mute-button {
     position: fixed;
     top: 20px;
@@ -150,8 +153,6 @@ nav {
     opacity: 1;
 }
 
-/* Copyright Label */
-
 .copyright {
     position: fixed;
     bottom: 20px;
@@ -164,10 +165,6 @@ nav {
     z-index: 1000;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-}
-
-.container {
-    padding-bottom: 50px;
 }
 
 .input-container {

@@ -1,38 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G/VERSE</title>
     <link rel="stylesheet" href="style.css">
-    <title>G/VERSE™ - CREATIVE POWERHOUSE</title>
+    <link rel="icon" type="image/webp" href="src/logo.webp">
 </head>
-
 <body>
-   
-    <nav>
-        <div class="logo-container">
-            <a href="index.html">
-                <img src="src/logo.webp" alt="G/VERSE logo">
-            </a>
-        </div>
+    <nav class="logo-container">
+        <a href="index.html"><img src="src/logo.webp" alt="G/VERSE logo"></a>
     </nav>
 
     <div id="text-container"></div>
 
-    <audio id="typingSound" src="src/keyboard-typing-5997.mp3" alt="Typing sound"></audio>
-
     <div class="container">
         <button id="send-enquiry" onclick="sendEnquiry()">Send Enquiry</button>
+        <button id="work-examples" onclick="openPDF('work-examples.pdf')">Work Examples</button>
+        <button id="services" onclick="openPDF('services.pdf')">Services</button>
     </div>
 
-    <button id="mute-button" onclick="toggleMute()">SOUND</button>
+    <button id="mute-button" onclick="toggleMute()">SOUND ON</button>
 
-    <div class="copyright">
-        © 2024 GALANACCI®
-    </div>
+    <div class="copyright">© 2024 GALANACCI®</div>
+
+    <audio id="typingSound" src="src/typing-sound.mp3" preload="auto"></audio>
 
     <script src="script.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </body>
 </html>
