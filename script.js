@@ -12,24 +12,10 @@ const texts = [
 ];
 
 const container = document.getElementById('text-container');
-const typingSound = document.getElementById('typingSound');
 let currentIndex = 0;
-
-async function playTypingSound(duration) {
-    if (!isMuted) {
-        typingSound.currentTime = 0;
-        typingSound.playbackRate = 15 / duration;
-        try {
-            await typingSound.play();
-        } catch (error) {
-            console.error("Audio playback failed:", error);
-        }
-    }
-}
 
 async function typeWriter(text) {
     const typingDuration = text.length * 100; // 100ms per character
-    playTypingSound(typingDuration / 1000); // Convert to seconds
 
     for (let i = 0; i <= text.length; i++) {
         container.innerHTML = text.substring(0, i) + '<span class="cursor"></span>';
@@ -60,16 +46,6 @@ function sendEnquiry() {
 function openPDF(filename) {
     const pdfUrl = `src/${filename}`;
     window.open(pdfUrl, '_blank', 'fullscreen=yes');
-}
-
-// Mute button functionality
-let isMuted = false;
-const muteButton = document.getElementById('mute-button');
-
-function toggleMute() {
-    isMuted = !isMuted;
-    typingSound.muted = isMuted;
-    muteButton.textContent = isMuted ? 'SOUND OFF' : 'SOUND ON';
 }
 
 // Start the animation
