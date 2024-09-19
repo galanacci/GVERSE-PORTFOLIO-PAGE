@@ -15,11 +15,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 body::before {
     content: '';
-    position: absolute;
+    position: fixed; /* Changed from absolute to fixed */
     top: 0;
     left: 0;
     right: 0;
@@ -27,7 +30,8 @@ body::before {
     background-image: url('src/pattern.webp');
     background-size: cover;
     background-position: center;
-    background-repeat: repeat;
+    background-repeat: no-repeat; /* Changed from repeat to no-repeat */
+    background-attachment: fixed; /* Added to ensure the background stays fixed */
     opacity: 0.1;
     z-index: -1;
 }
@@ -245,3 +249,36 @@ nav {
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+.pdf-close-button {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #fab322;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #144c3b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    line-height: 1;
+}
+
+.pdf-close-button:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .pdf-close-button {
+        top: 5px;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+    }
+}
