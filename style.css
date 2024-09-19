@@ -5,6 +5,8 @@
     font-style: normal;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 body {
     background-color: #144c3b;
     color: #fab322;
@@ -110,34 +112,42 @@ nav {
     padding: 10px 20px;
     font-size: 16px;
     background-color: transparent;
-    border: 0.8px solid #fab322;
+    border: none;
     cursor: pointer;
     white-space: nowrap;
-    border-radius: 0px;
     z-index: 1000;
     color: #fab322;
-    font-family: 'Galanacci', sans-serif;
-    transition: background-color 0.3s, color 0.3s;
-    margin: 0 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
 }
 
-#send-enquiry:hover, #work-examples:hover, #services:hover {
-    background-color: #fab322;
-    color: #144c3b;
+#send-enquiry::before, #work-examples::before, #services::before {
+    display: block;
+    content: attr(title);
+    font-weight: 700;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#send-enquiry:hover, #work-examples:hover, #services:hover,
+#send-enquiry:active, #work-examples:active, #services:active,
+#send-enquiry:focus, #work-examples:focus, #services:focus {
+    font-weight: 700;
+    color: #fab322;
 }
 
 @media (max-width: 480px) {
-    .container {
-        padding-bottom: 20px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+    #send-enquiry, #work-examples, #services {
+        font-size: 12px;
+        padding: 8px 12px;
     }
 
-    #send-enquiry, #work-examples, #services {
-        margin-bottom: 30px;
-        font-size: 10px;
-        padding: 10px 15px;
+    #send-enquiry::before, #work-examples::before, #services::before {
+        display: none;
     }
 }
 
@@ -149,7 +159,7 @@ nav {
     text-align: center;
     font-size: 8px;
     color: #fab322;
-    opacity: 1;
+    opacity: 0.2;
     z-index: 1000;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
