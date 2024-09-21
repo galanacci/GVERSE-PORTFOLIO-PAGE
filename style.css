@@ -50,7 +50,7 @@ body::before {
 }
 
 .small-text {
-    font-size: 1.5em;
+    font-size: 2.5em;
 }
 
 .cursor {
@@ -90,7 +90,7 @@ nav {
 
 .logo-container img {
     max-width: 100%;
-    height: 60px;
+    height: 120px;
 }
 
 .container {
@@ -159,7 +159,7 @@ nav {
     text-align: center;
     font-size: 8px;
     color: #fab322;
-    opacity: 1;
+    opacity: 0.5;
     z-index: 1000;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
