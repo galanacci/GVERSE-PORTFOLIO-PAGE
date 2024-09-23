@@ -11,7 +11,7 @@
 <body>
     <nav>
         <div class="logo-container">
-            <a href="galanacci-verse.com"><img src="src/logo.webp" alt="G/VERSE logo"></a>
+            <a href="https://galanacci-verse.com"><img src="src/logo.webp" alt="G/VERSE logo"></a>
         </div>
     </nav>
 
@@ -30,10 +30,11 @@
         <div class="popup-content">
             <span class="close">&times;</span>
             <h2>Send Enquiry</h2>
-            <form id="enquiry-form">
+            <form id="enquiry-form" action="https://formspree.io/f/mdknrpzg" method="POST">
                 <input type="text" id="name" name="name" required placeholder="Your Name">
-                <input type="email" id="email" name="email" required placeholder="Your Email">
+                <input type="email" id="email" name="_replyto" required placeholder="Your Email">
                 <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+                <input type="hidden" name="_subject" value="New enquiry">
                 <button type="submit">Send</button>
             </form>
         </div>
