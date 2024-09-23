@@ -189,22 +189,22 @@ nav {
 
 .popup-content {
     background-color: #144c3b;
-    margin: 15% auto;
     padding: 20px;
     border: 1px solid #fab322;
     width: 80%;
     max-width: 500px;
-    position: relative;
+    position: fixed;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 @media (max-width: 768px) {
     .popup-content {
-        margin: 0 auto;
-        width: 90%;
-        max-height: 90vh;
-        overflow-y: auto;
+        width: calc(90% - 20px); /* 90% width minus 20px for left and right padding */
+        padding: 20px 10px; /* 20px top/bottom, 10px left/right */
     }
 }
 
