@@ -66,11 +66,11 @@ body::before {
 
 @media (max-width: 767px) {
     .large-text {
-        font-size: 1.0em;
+        font-size: 2.0em;
     }
 
     .small-text {
-        font-size: 1.0em;
+        font-size: 2.0em;
     }
 }
 
@@ -117,37 +117,27 @@ nav {
     white-space: nowrap;
     z-index: 1000;
     color: #fab322;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
+    font-family: 'Galanacci', sans-serif; /* Changed from Montserrat to Galanacci */
     text-transform: uppercase;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.3s; /* Added transform to transition */
     position: relative;
 }
 
 #send-enquiry::before, #work-examples::before, #services::before {
-    display: block;
-    content: attr(title);
-    font-weight: 700;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+    display: none; /* Removed since Galanacci is already bold */
 }
 
 #send-enquiry:hover, #work-examples:hover, #services:hover,
 #send-enquiry:active, #work-examples:active, #services:active,
 #send-enquiry:focus, #work-examples:focus, #services:focus {
-    font-weight: 700;
     color: #fab322;
+    transform: scale(1.1); /* Added scale effect on hover */
 }
 
 @media (max-width: 480px) {
     #send-enquiry, #work-examples, #services {
         font-size: 12px;
         padding: 8px 12px;
-    }
-
-    #send-enquiry::before, #work-examples::before, #services::before {
-        display: none;
     }
 }
 
