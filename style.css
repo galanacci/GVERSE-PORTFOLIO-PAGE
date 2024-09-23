@@ -195,6 +195,17 @@ nav {
     width: 80%;
     max-width: 500px;
     position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+    .popup-content {
+        margin: 0 auto;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
 }
 
 .close {
