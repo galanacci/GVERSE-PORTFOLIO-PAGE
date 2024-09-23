@@ -124,11 +124,28 @@ document.getElementById('enquiry-form').addEventListener('submit', function(e) {
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
     
-    console.log('Enquiry submitted:', { name, email, message });
-    alert('Thank you for your enquiry. We will get back to you soon!');
-    
-    document.getElementById('enquiry-popup').style.display = 'none';
-    this.reset();
+    // Send the form data to the server
+    fetch('/send-enquiry', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, message })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Thank you for your enquiry. We will get back to you soon!');
+            document.getElementById('enquiry-popup').style.display = 'none';
+            this.reset();
+        } else {
+            alert('There was an error sending your enquiry. Please try again later.');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('There was an error sending your enquiry. Please try again later.');
+    });
 });
 
 // Close the popup if clicked outside the form
