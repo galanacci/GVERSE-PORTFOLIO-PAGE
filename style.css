@@ -108,22 +108,6 @@ nav {
     background-color: rgba(0, 0, 0, 0.0);
 }
 
-#enquiry-form input,
-#enquiry-form textarea {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #fab322;
-    background-color: #144c3b;
-    color: #fab322;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400;
-}
-
-#enquiry-form textarea {
-    height: 100px;
-    resize: vertical;
-}
-
 #send-enquiry, #work-examples, #services {
     padding: 10px 20px;
     font-size: 16px;
@@ -250,7 +234,8 @@ nav {
     border: 1px solid #fab322;
     background-color: #144c3b;
     color: #fab322;
-    font-family: 'Galanacci', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
 }
 
 #enquiry-form textarea {
