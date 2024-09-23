@@ -118,41 +118,32 @@ document.querySelector('.close').addEventListener('click', function() {
     document.getElementById('enquiry-popup').style.display = 'none';
 });
 
+// Enquiry Form
+
 document.getElementById('enquiry-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    
-    // Send the form data to the server
-    fetch('/send-enquiry', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, message })
-      })
-      .then(response => {
-        if (!response.ok) {
-          return response.text().then(text => {
-            throw new Error(`HTTP error! status: ${response.status}, body: ${text}`);
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.success) {
-          alert('Thank you for your enquiry. We will get back to you soon!');
-          document.getElementById('enquiry-popup').style.display = 'none';
-          document.getElementById('enquiry-form').reset();
-        } else {
-          throw new Error('Server indicated failure');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('There was an error sending your enquiry. Please try again later.');
-      });
+  e.preventDefault();
+  var form = this;
+  
+  fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+          'Accept': 'application/json'
+      }
+  }).then(response => {
+      if (response.ok) {
+          return response.json();
+      } else {
+          throw new Error('Network response was not ok.');
+      }
+  }).then(data => {
+      alert('Thank you for your enquiry. We will get back to you soon!');
+      document.getElementById('enquiry-popup').style.display = 'none';
+      form.reset();
+  }).catch(error => {
+      console.error('Error:', error);
+      alert('There was an error sending your enquiry. Please try again later.');
+  });
 });
 
 // Close the popup if clicked outside the form
