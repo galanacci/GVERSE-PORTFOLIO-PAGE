@@ -1,6 +1,6 @@
 const texts = [
     { text: "G/VERSE, aka GALANACCI-VERSE", isStatement: true },
-    { text: "A multi-disciplinary creative studio", isStatement: false },
+    { text: "A multi-disciplinary studio", isStatement: false },
     { text: "Connecting the unseen dots", isStatement: true },
     { text: "Founded by Francis and Marybeth", isStatement: true },
     { text: "Over eight years of partnership", isStatement: false },
