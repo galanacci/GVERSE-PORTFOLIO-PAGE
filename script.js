@@ -37,11 +37,6 @@ function showNextText() {
     currentIndex = (currentIndex + 1) % texts.length;
 }
 
-// Function to handle the Send Enquiry button click
-function sendEnquiry() {
-    document.getElementById('enquiry-popup').style.display = 'block';
-}
-
 // Function to check if the device is mobile
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -108,49 +103,41 @@ function openPDF(filename) {
     }
 }
 
+// Function to handle the Send Enquiry button click
+function sendEnquiry() {
+    const popup = document.getElementById('enquiry-popup');
+    popup.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Function to close the popup
+function closePopup() {
+    const popup = document.getElementById('enquiry-popup');
+    popup.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+}
+
 // Event listeners
 document.getElementById('send-enquiry').addEventListener('click', sendEnquiry);
-
 document.getElementById('work-examples').addEventListener('click', () => openPDF('work-examples.pdf'));
 document.getElementById('services').addEventListener('click', () => openPDF('services.pdf'));
 
-document.querySelector('.close').addEventListener('click', function() {
-    document.getElementById('enquiry-popup').style.display = 'none';
-});
-
-// Enquiry Form
-
-document.getElementById('enquiry-form').addEventListener('submit', function(e) {
-  e.preventDefault();
-  var form = this;
-  
-  fetch(form.action, {
-      method: form.method,
-      body: new FormData(form),
-      headers: {
-          'Accept': 'application/json'
-      }
-  }).then(response => {
-      if (response.ok) {
-          return response.json();
-      } else {
-          throw new Error('Network response was not ok.');
-      }
-  }).then(data => {
-      alert('Thank you for your enquiry. We will get back to you soon!');
-      document.getElementById('enquiry-popup').style.display = 'none';
-      form.reset();
-  }).catch(error => {
-      console.error('Error:', error);
-      alert('There was an error sending your enquiry. Please try again later.');
-  });
+// Close button functionality - using event delegation for better reliability
+document.addEventListener('DOMContentLoaded', function() {
+    const closeButton = document.querySelector('.pdf-close-button');
+    if (closeButton) {
+        closeButton.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent event from bubbling up
+            closePopup();
+        });
+    }
 });
 
 // Close the popup if clicked outside the form
 window.addEventListener('click', function(event) {
     const popup = document.getElementById('enquiry-popup');
-    if (event.target == popup) {
-        popup.style.display = 'none';
+    if (event.target === popup) {
+        closePopup();
     }
 });
 

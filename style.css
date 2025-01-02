@@ -280,15 +280,71 @@ nav {
     align-items: center;
     padding: 0;
     line-height: 1;
+    z-index: 2001;
 }
 
 .pdf-close-button:hover {
     transform: translateX(-50%) scale(1.1);
 }
 
+/* Update the popup content styles */
+.popup-content {
+    background-color: #144c3b;
+    padding: 0;
+    border: 1px solid #fab322;
+    width: 95%;
+    height: 95vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+#google-form-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: white;
+    margin-top: 30px; /* Add space for the close button */
+}
+
 @media (max-width: 768px) {
+    .popup-content {
+        width: 100%;
+        height: 100vh;
+        border: none;
+    }
+    
     .pdf-close-button {
-        top: 5px;
+        top: 10px;
+        right: 10px;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        left: auto;
+        transform: none;
+    }
+
+    .pdf-close-button:hover {
+        transform: scale(1.1);
+    }
+    
+    #google-form-iframe {
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .popup-content {
+        width: 100%;
+        height: 100vh;
+        border: none;
+    }
+    
+    .pdf-close-button {
+        top: 10px;
+        right: 10px;
         width: 25px;
         height: 25px;
         font-size: 16px;

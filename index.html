@@ -30,18 +30,11 @@
 
     <div class="copyright">© 2025 A GALANACCI® COMPANY</div>
 
-    <!-- Enquiry Form Pop-up -->
+    <!-- Google Form Pop-up -->
     <div id="enquiry-popup" class="popup">
         <div class="popup-content">
-            <span class="close">&times;</span>
-            <h2>Send Enquiry</h2>
-            <form id="enquiry-form" action="https://formspree.io/f/mdknrpzg" method="POST">
-                <input type="text" id="name" name="name" required placeholder="Your Name">
-                <input type="email" id="email" name="_replyto" required placeholder="Your Email">
-                <textarea id="message" name="message" required placeholder="Your Message"></textarea>
-                <input type="hidden" name="_subject" value="NEW ENQUIRY FROM G/VERSE">
-                <button type="submit">Send</button>
-            </form>
+            <button class="pdf-close-button" aria-label="Close">×</button>
+            <iframe id="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSeLdwJ5DvgFfjRTE5iTdqrWCpJujH9VrbCOtwcbUgxPHGWhyg/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
     </div>
     <script src="script.js"></script>
