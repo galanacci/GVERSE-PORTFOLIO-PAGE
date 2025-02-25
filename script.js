@@ -119,7 +119,7 @@ function closePopup() {
 
 // Event listeners
 document.getElementById('send-enquiry').addEventListener('click', sendEnquiry);
-document.getElementById('work-examples').addEventListener('click', () => openPDF('work-examples.pdf'));
+document.getElementById('selected-works').addEventListener('click', () => openPDF('selected-works.pdf'));
 document.getElementById('services').addEventListener('click', () => openPDF('services.pdf'));
 
 // Close button functionality - using event delegation for better reliability
