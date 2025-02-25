@@ -108,7 +108,7 @@ nav {
     background-color: rgba(0, 0, 0, 0.0);
 }
 
-#send-enquiry, #work-examples, #services {
+#send-enquiry, #selected-works, #services {
     padding: 10px 20px;
     font-size: 16px;
     background-color: transparent;
@@ -123,19 +123,19 @@ nav {
     position: relative;
 }
 
-#send-enquiry::before, #work-examples::before, #services::before {
+#send-enquiry::before, #selected-works::before, #services::before {
     display: none; /* Removed since Galanacci is already bold */
 }
 
-#send-enquiry:hover, #work-examples:hover, #services:hover,
-#send-enquiry:active, #work-examples:active, #services:active,
-#send-enquiry:focus, #work-examples:focus, #services:focus {
+#send-enquiry:hover, #selected-works:hover, #services:hover,
+#send-enquiry:active, #selected-works:active, #services:active,
+#send-enquiry:focus, #selected-works:focus, #services:focus {
     color: #fab322;
     transform: scale(1.1); /* Added scale effect on hover */
 }
 
 @media (max-width: 480px) {
-    #send-enquiry, #work-examples, #services {
+    #send-enquiry, #selected-works, #services {
         font-size: 12px;
         padding: 8px 12px;
     }
